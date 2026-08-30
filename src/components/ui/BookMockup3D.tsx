@@ -18,11 +18,7 @@ export function BookMockup3D({
 }: BookMockup3DProps) {
   const [imageError, setImageError] = useState(false);
 
-  const hasCustomImage =
-    imageSrc &&
-    imageSrc.trim() !== "" &&
-    !imageSrc.includes("book-cover.png") &&
-    !imageError;
+  const hasCustomImage = Boolean(imageSrc && imageSrc.trim() !== "" && !imageError);
 
   return (
     <div className={cn("relative flex flex-col items-center justify-center p-2 sm:p-4 max-w-full w-full", className)}>

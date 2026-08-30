@@ -62,12 +62,12 @@ export function LanguageEditions({ settings, editions }: LanguageEditionsProps) 
               {/* 2. DEDICATED LARGE BOOK COVER IMAGE AREA */}
               <div className="my-3 sm:my-5 flex justify-center items-center w-full">
                 {hasImage ? (
-                  <div className="relative w-[min(80vw,260px)] md:w-[280px] lg:w-[300px] h-[340px] xs:h-[370px] sm:h-[400px] md:h-[420px] mx-auto flex items-center justify-center p-2 rounded-xl transition-all duration-300">
+                  <div className="w-full max-w-[280px] sm:max-w-[310px] aspect-[2/3] mx-auto flex items-center justify-center rounded-xl transition-all duration-300 shadow-2xl border border-gold/40 hover:border-gold hover:shadow-[0_25px_50px_-12px_rgba(197,138,36,0.3)] hover:scale-[1.02] overflow-hidden bg-navy/5">
                     <img
                       src={edition.coverImage}
                       alt={`${edition.name} Cover`}
                       onError={() => handleImageError(edition.id)}
-                      className="w-full h-full object-contain rounded-lg shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:scale-[1.02] transition-all duration-300 border border-gold/30"
+                      className="w-full h-full object-cover rounded-xl block"
                     />
                   </div>
                 ) : (
