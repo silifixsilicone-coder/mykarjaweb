@@ -91,16 +91,16 @@ export default function AdminEditionsPage() {
     setMessage(null);
 
     try {
-      for (const ed of editions) {
-        const res = await fetch("/api/admin/editions", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(ed),
-        });
-        if (!res.ok) throw new Error(`Failed to update ${ed.name}`);
-      }
+      const res = await fetch("/api/admin/editions", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editions),
+      });
 
-      setMessage({ text: "All Edition settings & Book Covers saved successfully!", error: false });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to update editions");
+
+      setMessage({ text: "All Edition Prices, Settings & Covers saved live successfully!", error: false });
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Error saving changes";
       setMessage({ text: errorMessage, error: true });
