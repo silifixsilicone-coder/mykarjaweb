@@ -121,7 +121,7 @@ export default function AdminEditionsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {editions.map((ed) => {
-            const hasCover = ed.coverImage && ed.coverImage.startsWith("/uploads/");
+            const hasCover = Boolean(ed.coverImage && ed.coverImage.trim() !== "");
 
             return (
               <div
@@ -153,11 +153,10 @@ export default function AdminEditionsPage() {
                   <div className="relative w-full h-[220px] bg-navy/10 rounded-xl border-2 border-dashed border-gold/40 flex flex-col items-center justify-center p-3 text-center overflow-hidden group">
                     {hasCover ? (
                       <>
-                        <Image
+                        <img
                           src={ed.coverImage}
                           alt={ed.name}
-                          fill
-                          className="object-contain p-2"
+                          className="w-full h-full object-contain p-2"
                         />
                         <div className="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
                           <label className="px-3 py-1.5 bg-gold text-navy text-xs font-bold rounded-lg cursor-pointer hover:bg-gold-light transition-colors">

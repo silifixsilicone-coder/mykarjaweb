@@ -138,7 +138,7 @@ export default function AdminPreviewPagesPage() {
       {/* 3 Fixed Preview Slots */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {pages.map((p, idx) => {
-          const hasImage = p.image && p.image.startsWith("/uploads/") && !p.image.includes("preview-page-");
+          const hasImage = Boolean(p.image && p.image.trim() !== "");
 
           return (
             <div
@@ -163,11 +163,10 @@ export default function AdminPreviewPagesPage() {
                 <div className="relative w-full h-[220px] bg-navy/10 rounded-xl border-2 border-dashed border-gold/40 flex flex-col items-center justify-center p-3 text-center overflow-hidden group">
                   {hasImage ? (
                     <>
-                      <Image
+                      <img
                         src={p.image}
                         alt={`Preview Page ${idx + 1}`}
-                        fill
-                        className="object-contain p-2"
+                        className="w-full h-full object-contain p-2"
                       />
                       <div className="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
                         <label className="px-3 py-1.5 bg-gold text-navy text-xs font-bold rounded-lg cursor-pointer hover:bg-gold-light transition-colors">
