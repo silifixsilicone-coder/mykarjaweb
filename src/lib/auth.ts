@@ -9,7 +9,7 @@ const SECRET = new TextEncoder().encode(
 const COOKIE_NAME = "admin-session";
 
 export async function verifyPassword(password: string): Promise<boolean> {
-  const storedPassword = process.env.ADMIN_PASSWORD || "admin123";
+  const storedPassword = process.env.ADMIN_PASSWORD || "Planbizz@2026";
   // For simplicity, compare plain text. In production, store a bcrypt hash.
   // If stored password looks like a bcrypt hash, use bcrypt.compare
   if (storedPassword.startsWith("$2")) {
@@ -19,7 +19,7 @@ export async function verifyPassword(password: string): Promise<boolean> {
 }
 
 export async function verifyUsername(username: string): Promise<boolean> {
-  const storedUsername = process.env.ADMIN_USERNAME || "admin";
+  const storedUsername = process.env.ADMIN_USERNAME || "Planbizz";
   return username === storedUsername;
 }
 
