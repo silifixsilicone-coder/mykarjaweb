@@ -38,10 +38,11 @@ export function LanguageEditions({ settings, editions }: LanguageEditionsProps) 
       {/* 3 Edition Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 mt-8 sm:mt-12 max-w-6xl mx-auto">
         {activeEditions.map((edition) => {
-          const hasImage =
+          const hasImage = Boolean(
             edition.coverImage &&
-            edition.coverImage.trim() !== "" &&
-            !imageErrors[edition.id];
+              edition.coverImage.trim() !== "" &&
+              (!imageErrors[edition.id] || edition.coverImage.startsWith("data:"))
+          );
 
           return (
             <div

@@ -46,8 +46,24 @@ export default function AdminEditionsPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to upload image");
 
-      handleEditionChange(id, "coverImage", data.url);
-      setMessage({ text: "Book cover uploaded! Click 'Save Editions' to publish.", error: false });
+      const newUrl = data.url;
+
+      // Update state
+      setEditions((prev) =>
+        prev.map((e) => (e.id === id ? { ...e, coverImage: newUrl } : e))
+      );
+
+      // Immediately save to API / Firestore
+      const targetEd = editions.find((e) => e.id === id);
+      if (targetEd) {
+        await fetch("/api/admin/editions", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...targetEd, coverImage: newUrl }),
+        });
+      }
+
+      setMessage({ text: "Book cover uploaded and published live on the website!", error: false });
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Error uploading image";
       setMessage({ text: errorMessage, error: true });
@@ -56,8 +72,18 @@ export default function AdminEditionsPage() {
     }
   };
 
-  const handleRemoveImage = (id: string) => {
-    handleEditionChange(id, "coverImage", "");
+  const handleRemoveImage = async (id: string) => {
+    setEditions((prev) =>
+      prev.map((e) => (e.id === id ? { ...e, coverImage: "" } : e))
+    );
+    const targetEd = editions.find((e) => e.id === id);
+    if (targetEd) {
+      await fetch("/api/admin/editions", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...targetEd, coverImage: "" }),
+      });
+    }
   };
 
   const handleSaveAll = async () => {
