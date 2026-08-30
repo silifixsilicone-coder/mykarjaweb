@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Colors */
+  --color-cream: #FFF8E8;
+  --color-navy: #071827;
+  --color-gold: #C58A24;
+  --color-gold-light: #E2B24A;
+  --color-main: #111820;
+  --color-cream-dark: #F5EDD8;
+  --color-navy-light: #0E2A3F;
+  --color-gold-faint: rgba(197, 138, 36, 0.1);
+
+  /* Fonts */
+  --font-serif-deva: "Noto Serif Devanagari", serif;
+  --font-serif-en: "Playfair Display", serif;
+  --font-serif-alt: "Cormorant Garamond", serif;
+  --font-sans: "Inter", "Noto Sans", sans-serif;
+
+  /* Spacing extensions */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+}
+
+:root {
+  --background: #FFF8E8;
+  --foreground: #111820;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Devanagari text styling */
+.text-deva {
+  font-family: var(--font-serif-deva);
+}
+
+.text-serif-en {
+  font-family: var(--font-serif-en);
+}
+
+.text-serif-alt {
+  font-family: var(--font-serif-alt);
+}
+
+/* Gold gradient text with adequate padding box to prevent Devanagari clipping */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #C58A24, #E2B24A, #C58A24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-bottom: 0.15em;
+  padding-top: 0.05em;
+  display: inline-block;
+}
+
+/* Gold line animation */
+.gold-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C58A24, #E2B24A, #C58A24, transparent);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFF8E8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C58A24;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E2B24A;
+}
+
+/* FAQ accordion animation */
+.faq-answer {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Embla carousel */
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+/* Book Cover - Straight, 0deg, Upright, Static (No Tilt, No Rotation) */
+.book-3d {
+  perspective: none !important;
+  transform: none !important;
+}
+
+.book-3d-inner {
+  transform: rotate(0deg) rotateY(0deg) rotateX(0deg) !important;
+  transform-style: flat !important;
+  transition: none !important;
+}
+
+.book-3d:hover .book-3d-inner {
+  transform: rotate(0deg) rotateY(0deg) rotateX(0deg) !important;
+}
+
+.book-shadow {
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25), 0 0 15px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Animations keyframes */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #C58A24 0%, #E2B24A 50%, #C58A24 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}

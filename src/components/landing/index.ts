@@ -1,0 +1,15 @@
+export { Navbar } from "./Navbar";
+export { Hero } from "./Hero";
+export { Problem } from "./Problem";
+export { BookIntro } from "./BookIntro";
+export { WhatYouWillLearn } from "./WhatYouWillLearn";
+export { Benefits } from "./Benefits";
+export { BookPreview } from "./BookPreview";
+export { LanguageEditions } from "./LanguageEditions";
+export { Combo } from "./Combo";
+export { Testimonials } from "./Testimonials";
+export { Author } from "./Author";
+export { Faq } from "./Faq";
+export { FinalCta } from "./FinalCta";
+export { Footer } from "./Footer";
+export { StickyMobileCta } from "./StickyMobileCta";

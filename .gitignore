@@ -1,0 +1,42 @@
+# dependencies
+node_modules
+**/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+
+# testing
+/coverage
+
+# next.js & build outputs
+/.next/
+/out/
+/build
+.next
+dist
+**/dist
+
+# database
+prisma/*.db
+prisma/*.db-journal
+*.sqlite
+*.db
+
+# misc
+.DS_Store
+*.pem
+*.log
+*.tsbuildinfo
+next-env.d.ts
+
+# env files
+.env
+.env.local
+.env*.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel

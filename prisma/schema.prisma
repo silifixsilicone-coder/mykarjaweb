@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SiteSettings {
+  id String @id @default("default")
+
+  // Navbar Purchase Link
+  navbarCtaText    String @default("eBook घ्या")
+  navbarPaymentUrl String @default("")
+
+  // Hero Section Purchase Link & Copy
+  heroQuote        String @default("कर्जातून मुक्ती, मनातून शांती आणि सुखाच्या खऱ्या प्रवासाची सुरुवात…")
+  heroTitle        String @default("कर्ज संपण्याआधीच जगायला शिका")
+  heroSubtitle     String @default("कर्ज • पैसा • बचत • मानसिक शांती • Positive Thinking • Manifestation • सुख")
+  heroDescription  String @default("कर्ज फेडताना आयुष्य जगणं थांबवू नका.")
+  heroCta          String @default("आता eBook घ्या")
+  heroPaymentUrl   String @default("")
+  heroSecondaryCta String @default("पुस्तकातील पाने पहा")
+  heroImage        String @default("/uploads/book-cover.png")
+
+  // Problem Section
+  problemHeadline  String @default("कर्ज फेडताना आपण आयुष्य जगणं विसरलो आहोत का?")
+  problemStatement String @default("कर्ज फेडा… पण आयुष्य जगणं थांबवू नका.")
+
+  // Book Introduction
+  bookIntroHeading String @default("हे पुस्तक फक्त कर्जाबद्दल नाही.")
+  bookIntroText    String @default("या पुस्तकात कर्ज, पैसा, बचत, मानसिक शांतता, Positive Thinking, Manifestation आणि सुख या सगळ्या विषयांवर सखोल मार्गदर्शन आहे. हे पुस्तक तुम्हाला कर्जाच्या ओझ्याखाली दबून न जाता, आयुष्य आनंदाने जगायला शिकवतं.")
+
+  // Benefits Heading
+  benefitsHeading String @default("हे eBook तुमच्यासाठी का?")
+
+  // Preview Heading
+  previewHeading String @default("पुस्तकातील काही पाने पहा")
+
+  // Editions Heading
+  editionsHeading String @default("तुमची eBook आवृत्ती निवडा")
+
+  // Combo
+  comboEnabled     Boolean @default(true)
+  comboHeading     String  @default("तीन्ही भाषा — एकच उद्देश")
+  comboDescription String  @default("मराठी, हिंदी आणि English — तीन्ही eBooks एकत्र मिळवा विशेष सवलतीत!")
+  comboPrice       String  @default("₹399")
+  comboButtonText  String  @default("Combo eBook घ्या")
+  comboPaymentUrl  String  @default("https://example.com/pay/combo")
+  comboImage       String  @default("/uploads/combo-cover.png")
+
+  // Author
+  authorName    String @default("लेखक")
+  authorBio     String @default("लेखकाबद्दल माहिती इथे जोडा.")
+  authorMessage String @default("लेखकाचा संदेश इथे जोडा.")
+  authorImage   String @default("/uploads/author.png")
+
+  // Final CTA
+  finalCtaHeading    String @default("कर्ज संपण्याची वाट पाहू नका… आयुष्य आजपासून जगायला सुरुवात करा.")
+  finalCtaButtonText String @default("आता eBook घ्या")
+
+  // SEO
+  seoTitle       String @default("कर्ज संपण्याआधीच जगायला शिका | Learn To Live Before The Debt Is Gone")
+  seoDescription String @default("कर्ज, पैसा, बचत, मानसिक शांती, Positive Thinking आणि Manifestation — एका पुस्तकात सगळं. Digital eBook मराठी, हिंदी आणि English मध्ये उपलब्ध.")
+  ogImage        String @default("/uploads/og-image.png")
+
+  // Learning Points Heading
+  learningHeading String @default("या eBook मधून तुम्ही काय शिकाल?")
+
+  updatedAt DateTime @updatedAt
+}
+
+model Edition {
+  id          String  @id @default(cuid())
+  language    String  // MARATHI, HINDI, ENGLISH
+  name        String
+  description String
+  coverImage  String
+  price       String
+  buttonText  String
+  paymentUrl  String
+  enabled     Boolean @default(true)
+  sortOrder   Int     @default(0)
+}
+
+model LearningPoint {
+  id          String @id @default(cuid())
+  number      String
+  title       String
+  description String
+  sortOrder   Int    @default(0)
+}
+
+model Benefit {
+  id        String @id @default(cuid())
+  text      String
+  sortOrder Int    @default(0)
+}
+
+model PreviewPage {
+  id        String @id @default(cuid())
+  image     String
+  caption   String @default("")
+  sortOrder Int    @default(0)
+}
+
+model Testimonial {
+  id        String @id @default(cuid())
+  name      String
+  photo     String @default("")
+  text      String
+  language  String @default("मराठी")
+  sortOrder Int    @default(0)
+}
+
+model FaqItem {
+  id        String @id @default(cuid())
+  question  String
+  answer    String
+  sortOrder Int    @default(0)
+}
+
+model ProblemPoint {
+  id        String @id @default(cuid())
+  text      String
+  icon      String @default("stress")
+  sortOrder Int    @default(0)
+}
