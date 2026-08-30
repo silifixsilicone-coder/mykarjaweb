@@ -9,7 +9,7 @@ interface StickyMobileCtaProps {
   settings?: Partial<SiteSettings>;
 }
 
-export function StickyMobileCta({ editions = [], settings }: StickyMobileCtaProps) {
+export function StickyMobileCta({ editions = [] }: StickyMobileCtaProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,9 @@ export function StickyMobileCta({ editions = [], settings }: StickyMobileCtaProp
     "#editions";
 
   const marathiPrice =
-    editions.find((e) => e.language === "MARATHI")?.price || "₹199";
+    editions.find((e) => e.language === "MARATHI")?.price ||
+    editions[0]?.price ||
+    "₹49";
 
   if (!isVisible) {
     return null;
@@ -42,15 +44,15 @@ export function StickyMobileCta({ editions = [], settings }: StickyMobileCtaProp
       <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
         {/* Left: Price & Title Info */}
         <div className="flex flex-col">
-          <div className="flex items-center gap-1.5">
-            <span className="text-gold font-serif-en font-black text-lg leading-tight">
+          <div className="flex items-center gap-2">
+            <span className="text-gold font-serif-en font-extrabold text-2xl xs:text-3xl tracking-tight leading-none drop-shadow-sm">
               {marathiPrice.startsWith("₹") ? marathiPrice : `₹${marathiPrice}`}
             </span>
-            <span className="text-[10px] bg-gold/20 text-gold-light font-bold px-1.5 py-0.5 rounded-sm">
+            <span className="text-[10px] sm:text-xs bg-gold/25 text-gold-light font-extrabold px-2 py-0.5 rounded-md border border-gold/40">
               60% OFF
             </span>
           </div>
-          <span className="text-[10px] text-cream/70 font-sans tracking-wide">
+          <span className="text-[10px] text-cream/80 font-sans tracking-wide mt-0.5">
             Digital eBook (Instant PDF)
           </span>
         </div>
@@ -61,7 +63,7 @@ export function StickyMobileCta({ editions = [], settings }: StickyMobileCtaProp
             href={defaultPaymentUrl}
             variant="primary"
             size="sm"
-            className="px-5 py-2 text-sm font-bold shadow-lg"
+            className="px-5 py-2.5 text-sm font-bold shadow-lg"
           >
             <span>eBook घ्या</span>
             <span className="ml-1">→</span>
