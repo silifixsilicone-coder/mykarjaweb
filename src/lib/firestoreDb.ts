@@ -14,16 +14,19 @@ import {
 } from "firebase/firestore";
 import { SiteSettings, Edition, LearningPoint, Benefit, PreviewPage, Testimonial, FaqItem, ProblemPoint } from "./types";
 
+export const DEFAULT_PAYMENT_CHECKOUT_URL =
+  "https://superprofile.bio/vp/कर्जमुक्त-आणि-आनंदी-आयुष्याकडे-पहिले-पाऊल-";
+
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   id: "default",
   navbarCtaText: "eBook घ्या",
-  navbarPaymentUrl: "",
+  navbarPaymentUrl: DEFAULT_PAYMENT_CHECKOUT_URL,
   heroQuote: "कर्जातून मुक्ती, मनातून शांती आणि सुखाच्या खऱ्या प्रवासाची सुरुवात…",
   heroTitle: "कर्ज संपण्याआधीच जगायला शिका",
   heroSubtitle: "कर्ज • पैसा • बचत • मानसिक शांती • Positive Thinking • Manifestation • सुख",
   heroDescription: "कर्ज फेडताना आयुष्य जगणं थांबवू नका.",
   heroCta: "आता eBook घ्या",
-  heroPaymentUrl: "",
+  heroPaymentUrl: DEFAULT_PAYMENT_CHECKOUT_URL,
   heroSecondaryCta: "पुस्तकातील पाने पहा",
   heroImage: "/uploads/book-cover.jpg",
   problemHeadline: "कर्ज फेडताना आपण आयुष्य जगणं विसरलो आहोत का?",
@@ -38,7 +41,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   comboDescription: "मराठी, हिंदी आणि English — तीन्ही eBooks एकत्र मिळवा विशेष सवलतीत!",
   comboPrice: "₹399",
   comboButtonText: "Combo eBook घ्या",
-  comboPaymentUrl: "",
+  comboPaymentUrl: DEFAULT_PAYMENT_CHECKOUT_URL,
   comboImage: "/uploads/book-cover.jpg",
   authorName: "लेखक",
   authorBio: "लेखकाबद्दल माहिती इथे जोडा.",
@@ -61,7 +64,7 @@ export const DEFAULT_EDITIONS: Edition[] = [
     coverImage: "/uploads/book-cover-marathi.jpg",
     price: "₹49",
     buttonText: "मराठी eBook घ्या",
-    paymentUrl: "",
+    paymentUrl: DEFAULT_PAYMENT_CHECKOUT_URL,
     enabled: true,
     sortOrder: 1,
   },
@@ -73,7 +76,7 @@ export const DEFAULT_EDITIONS: Edition[] = [
     coverImage: "/uploads/book-cover-hindi.jpg",
     price: "₹49",
     buttonText: "हिंदी eBook खरीदें",
-    paymentUrl: "",
+    paymentUrl: DEFAULT_PAYMENT_CHECKOUT_URL,
     enabled: true,
     sortOrder: 2,
   },
@@ -85,7 +88,7 @@ export const DEFAULT_EDITIONS: Edition[] = [
     coverImage: "/uploads/book-cover-english.jpg",
     price: "₹49",
     buttonText: "Get eBook",
-    paymentUrl: "",
+    paymentUrl: DEFAULT_PAYMENT_CHECKOUT_URL,
     enabled: true,
     sortOrder: 3,
   },
@@ -166,7 +169,14 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     const docRef = doc(db, "settings", "default");
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      return { ...DEFAULT_SITE_SETTINGS, ...docSnap.data() } as SiteSettings;
+      const data = docSnap.data() as Partial<SiteSettings>;
+      return {
+        ...DEFAULT_SITE_SETTINGS,
+        ...data,
+        navbarPaymentUrl: data.navbarPaymentUrl || DEFAULT_PAYMENT_CHECKOUT_URL,
+        heroPaymentUrl: data.heroPaymentUrl || DEFAULT_PAYMENT_CHECKOUT_URL,
+        comboPaymentUrl: data.comboPaymentUrl || DEFAULT_PAYMENT_CHECKOUT_URL,
+      } as SiteSettings;
     }
   } catch (err) {
     console.warn("Firestore getSiteSettings fallback executed:", err);
@@ -193,7 +203,14 @@ export async function getEditions(): Promise<Edition[]> {
     const q = query(colRef, orderBy("sortOrder", "asc"));
     const snapshot = await getDocs(q);
     if (!snapshot.empty) {
-      return snapshot.docs.map((docSnap: QueryDocumentSnapshot<DocumentData>) => ({ id: docSnap.id, ...docSnap.data() } as Edition));
+      return snapshot.docs.map((docSnap: QueryDocumentSnapshot<DocumentData>) => {
+        const item = docSnap.data() as Edition;
+        return {
+          ...item,
+          id: docSnap.id,
+          paymentUrl: item.paymentUrl || DEFAULT_PAYMENT_CHECKOUT_URL,
+        };
+      });
     }
   } catch (err) {
     console.warn("Firestore getEditions fallback executed:", err);

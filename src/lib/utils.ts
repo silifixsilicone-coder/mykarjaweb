@@ -4,6 +4,7 @@ export function cn(...classes: (string | undefined | null | false)[]) {
 
 export function validateUrl(url?: string | null): boolean {
   if (!url || url.trim() === "" || url.startsWith("#")) return true;
+  if (url.startsWith("http://") || url.startsWith("https://")) return true;
   try {
     const parsed = new URL(url);
     return parsed.protocol === "https:" || parsed.protocol === "http:";
@@ -13,6 +14,6 @@ export function validateUrl(url?: string | null): boolean {
 }
 
 export function formatPrice(price: string): string {
-  if (!price) return "₹199";
+  if (!price) return "₹49";
   return price.startsWith("₹") ? price : `₹${price}`;
 }
