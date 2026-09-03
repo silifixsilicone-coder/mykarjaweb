@@ -30,7 +30,7 @@ export function StickyMobileCta({ editions = [] }: StickyMobileCtaProps) {
   const marathiPrice =
     editions.find((e) => e.language === "MARATHI")?.price ||
     editions[0]?.price ||
-    "₹49";
+    "₹20";
 
   if (!isVisible) {
     return null;

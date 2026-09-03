@@ -14,6 +14,6 @@ export function validateUrl(url?: string | null): boolean {
 }
 
 export function formatPrice(price: string): string {
-  if (!price) return "₹49";
+  if (!price) return "₹20";
   return price.startsWith("₹") ? price : `₹${price}`;
 }
